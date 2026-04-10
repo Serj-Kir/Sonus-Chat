@@ -1,2 +1,108 @@
-# Sonus-Chat
-Sonus Chat-Это мессенджер основанный на python с многими функциями одним словом современный открытый мессенджер
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonus Chat</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1b0033, #000014);
+    color: white;
+    text-align: center;
+}
+
+header {
+    padding: 60px 20px;
+}
+
+.logo {
+    width: 200px;
+    border-radius: 30px;
+    box-shadow: 0 0 40px #8a2be2;
+}
+
+h1 {
+    font-size: 48px;
+    margin-top: 20px;
+    color: #ffffff;
+}
+
+p {
+    font-size: 20px;
+    color: #ccc;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #00c6ff, #ff00ff);
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+section {
+    padding: 60px 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255,0,255,0.2);
+}
+
+footer {
+    padding: 30px;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="icon.png" class="logo">
+    <h1>Sonus Chat</h1>
+    <p>Космический мессенджер нового поколения</p>
+    <a href="#" class="button">Скачать скоро</a>
+</header>
+
+<section>
+    <div class="card">
+        <h2>🚀 Быстрый</h2>
+        <p>Мгновенная передача сообщений через интернет и Bluetooth</p>
+    </div>
+
+    <div class="card">
+        <h2>🔒 Безопасный</h2>
+        <p>Шифрование сообщений и защита данных</p>
+    </div>
+
+    <div class="card">
+        <h2>🌌 Космический дизайн</h2>
+        <p>Современный интерфейс как в Telegram</p>
+    </div>
+</section>
+
+<footer>
+    Sonus Chat © 2026
+</footer>
+
+</body>
+</html>
+```
