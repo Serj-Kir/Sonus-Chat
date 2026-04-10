@@ -1,107 +1,325 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sonus Chat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonus Chat — Космический мессенджер</title>
+  <style>
+    /* ===== Сброс и базовые стили ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #1b0033, #000014);
-    color: white;
-    text-align: center;
-}
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      background: #0b0410; /* глубокий космос */
+      color: #ffffff;
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-header {
-    padding: 60px 20px;
-}
+    /* ===== Анимированный звёздный фон ===== */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.logo {
-    width: 200px;
-    border-radius: 30px;
-    box-shadow: 0 0 40px #8a2be2;
-}
+    .star {
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle 4s infinite ease-in-out;
+    }
 
-h1 {
-    font-size: 48px;
-    margin-top: 20px;
-    color: #ffffff;
-}
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
 
-p {
-    font-size: 20px;
-    color: #ccc;
-}
+    /* ===== Основной контейнер (поверх звёзд) ===== */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-.button {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 15px 30px;
-    font-size: 18px;
-    border-radius: 30px;
-    background: linear-gradient(45deg, #00c6ff, #ff00ff);
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
-}
+    /* ===== Шапка ===== */
+    header {
+      text-align: center;
+      padding: 80px 20px 60px;
+      animation: fadeInUp 1s ease-out;
+    }
 
-.button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #ff00ff;
-}
+    .logo-wrapper {
+      display: inline-block;
+      padding: 10px;
+      background: rgba(138, 43, 226, 0.15);
+      border-radius: 50%;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 50px rgba(186, 85, 211, 0.5);
+      margin-bottom: 25px;
+      transition: transform 0.3s ease;
+    }
 
-section {
-    padding: 60px 20px;
-}
+    .logo-wrapper:hover {
+      transform: scale(1.05);
+    }
 
-.card {
-    background: rgba(255,255,255,0.05);
-    margin: 20px auto;
-    padding: 30px;
-    max-width: 500px;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(255,0,255,0.2);
-}
+    .logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 30px;
+      display: block;
+      box-shadow: 0 0 30px #8a2be2;
+    }
 
-footer {
-    padding: 30px;
-    color: #777;
-}
-</style>
+    h1 {
+      font-size: clamp(42px, 8vw, 64px);
+      font-weight: 700;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    }
+
+    .subtitle {
+      font-size: clamp(18px, 4vw, 24px);
+      color: #cfc4e6;
+      margin-bottom: 30px;
+      font-weight: 300;
+      backdrop-filter: blur(5px);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      text-decoration: none;
+      padding: 16px 42px;
+      border-radius: 50px;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 25px rgba(106, 17, 203, 0.5);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      margin-top: 10px;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(138, 43, 226, 0.7);
+      background: linear-gradient(135deg, #7b2ff7 0%, #3a7bd5 100%);
+    }
+
+    /* ===== Карточки возможностей ===== */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px 80px;
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    .card {
+      background: rgba(20, 10, 30, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      padding: 35px 25px;
+      width: 320px;
+      max-width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 43, 226, 0.2) inset;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 20px #8a2be2;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .icon {
+      font-size: 56px;
+      margin-bottom: 20px;
+      background: linear-gradient(145deg, #bc8cf0, #6a4feb);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 12px #a55cff);
+    }
+
+    .card h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #f0e6ff;
+      font-weight: 600;
+    }
+
+    .card p {
+      color: #cdc3e6;
+      font-size: 16px;
+    }
+
+    /* ===== Футер ===== */
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 30px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      color: #9a8ab0;
+      font-size: 15px;
+    }
+
+    footer a {
+      color: #b79aff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #d9c9ff;
+      text-decoration: underline;
+    }
+
+    /* ===== Анимации ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== Адаптивность ===== */
+    @media (max-width: 700px) {
+      header {
+        padding: 50px 15px 30px;
+      }
+      .logo {
+        width: 140px;
+        height: 140px;
+      }
+      .features {
+        gap: 20px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-    <img src="icon.png" class="logo">
-    <h1>Sonus Chat</h1>
-    <p>Космический мессенджер нового поколения</p>
-    <a href="#" class="button">Скачать скоро</a>
-</header>
+  <!-- Звёздное небо (генерируется через JavaScript) -->
+  <div class="stars" id="stars"></div>
 
-<section>
-    <div class="card">
-        <h2>🚀 Быстрый</h2>
-        <p>Мгновенная передача сообщений через интернет и Bluetooth</p>
-    </div>
+  <div class="container">
+    <header>
+      <div class="logo-wrapper">
+        <!-- Замените src на свой логотип, если есть -->
+        <img src="icon.png" alt="Sonus Chat Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div style="display: none; width: 180px; height: 180px; background: linear-gradient(145deg, #4b1d8c, #1b0a33); border-radius: 30px; align-items: center; justify-content: center; font-size: 64px; box-shadow: inset 0 0 20px #b77aff;">
+          🚀
+        </div>
+      </div>
+      <h1>Sonus Chat</h1>
+      <p class="subtitle">Космический мессенджер нового поколения</p>
+      <a href="#" class="cta-button">✨ Скачать скоро</a>
+    </header>
 
-    <div class="card">
-        <h2>🔒 Безопасный</h2>
-        <p>Шифрование сообщений и защита данных</p>
-    </div>
+    <section class="features">
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h2>Мгновенный</h2>
+        <p>Передача сообщений через интернет и Bluetooth со скоростью света.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔐</div>
+        <h2>Защищённый</h2>
+        <p>Сквозное шифрование и анонимность — ваши данные только ваши.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌠</div>
+        <h2>Футуристичный</h2>
+        <p>Современный интерфейс в стиле киберпанк с плавными анимациями.</p>
+      </div>
+    </section>
+  </div>
 
-    <div class="card">
-        <h2>🌌 Космический дизайн</h2>
-        <p>Современный интерфейс как в Telegram</p>
-    </div>
-</section>
+  <footer>
+    <p>© 2026 Sonus Chat · Создано с 💜 на GitHub Pages · <a href="#">GitHub</a></p>
+  </footer>
 
-<footer>
-    Sonus Chat © 2026
-</footer>
+  <script>
+    (function() {
+      // Генерация звёзд
+      const starsContainer = document.getElementById('stars');
+      const starCount = 120;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        
+        starsContainer.appendChild(star);
+      }
 
+      // Обработка отсутствия иконки (если icon.png нет, показываем эмодзи-заглушку)
+      const logoImg = document.querySelector('.logo');
+      if (logoImg) {
+        logoImg.onerror = function() {
+          this.style.display = 'none';
+          const fallback = this.nextElementSibling;
+          if (fallback) fallback.style.display = 'flex';
+        };
+        // Принудительно проверим, если картинка уже загрузилась с ошибкой
+        if (!logoImg.complete) {
+          // ок
+        } else if (logoImg.naturalWidth === 0) {
+          logoImg.style.display = 'none';
+          const fallback = logoImg.nextElementSibling;
+          if (fallback) fallback.style.display = 'flex';
+        }
+      }
+    })();
+  </script>
+
+  <!-- Небольшой фикс для Safari backdrop-filter -->
+  <style>
+    @supports not (backdrop-filter: blur(12px)) {
+      .card, .logo-wrapper, footer {
+        background: rgba(10, 5, 20, 0.8);
+      }
+    }
+  </style>
 </body>
 </html>
-```
